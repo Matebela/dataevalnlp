@@ -67,11 +67,10 @@ def main():
         if st.button("Login"):
             if authenticate(username, password):
                 st.session_state.authenticated = True
-                st.success(f"Welcome, {username}!")
+                st.experimental_rerun()  # Rerun the script to show the main content
             else:
                 st.error("Invalid username or password")
     else:
-        st.success("You are already logged in!")
         # Sidebar for navigation
         st.sidebar.title("Navigation")
         page = st.sidebar.selectbox("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
