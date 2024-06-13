@@ -7,7 +7,7 @@ def display():
     st.title("Whitepaper from Webinar")
 
     # File upload for webinar transcript
-    uploaded_file = st.file_uploader("Upload Webinar Transcript", type=["txt", "pdf", "mp3", "wav", "mpr"])
+    uploaded_file = st.file_uploader("Upload Webinar Transcript", type=["txt", "pdf", "mp3", "wav", "mp4"])
 
     # URL input for webinar transcript
     file_url = st.text_input("Or enter the URL of the file to transcribe")
@@ -41,10 +41,19 @@ def transcribe_file(file_path):
     config = aai.TranscriptionConfig(speaker_labels=True)
 
     if file_path.startswith("http"):
+        # If the file is a URL, transcribe it directly
         transcript = transcriber.transcribe(file_path, config=config)
     else:
-        with open(file_path, "rb") as f:
-            transcript = transcriber.transcribe(f, config=config)
+        # If the file is local, check if it's an audio file
+        if file_path.endswith(('.mp3', '.mp4', '.wav')):
+            # If it's an audio file, upload it to AssemblyAI's servers first
+            file_url = transcriber.upload(file_path)
+            # Then transcribe the uploaded file
+            transcript = transcriber.transcribe(file_url, config=config)
+        else:
+            # If it's not an audio file, transcribe it directly
+            with open(file_path, "rb") as f:
+                transcript = transcriber.transcribe(f, config=config)
 
     transcript_text = "\n".join([f"Speaker {utterance.speaker}: {utterance.text}" for utterance in transcript.utterances])
     return transcript_text
