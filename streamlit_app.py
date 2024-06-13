@@ -11,7 +11,7 @@ def login_form():
 # Function to authenticate the user
 def authenticate(username, password):
     authorized_users = {
-        "user1": "5e884898da28047151d0e56f8dc6292773603d0d6aabbddc8a1e6e6a6e6e6e6e",  # password: password
+        "user1": "5e884898da28047151d0e56f8dc6292773603d0d6aabbddc8a1e6e6a6e6e6e6e",  password: 5e884898da28047151d0e56f8dc6292773603d0d6aabbddc8a1e6e6a6e6e6e6e
         # Add more users and hashed passwords here
     }
     
