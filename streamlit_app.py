@@ -52,7 +52,7 @@ def main():
             if authenticate(username, password):
                 st.session_state.authenticated = True
                 st.session_state.last_active = time.time()
-                st.experimental_rerun()  # Rerun the script to show the main content
+                st.experimental_rerun() 
             else:
                 st.error("Invalid username or password")
     else:
@@ -62,11 +62,10 @@ def main():
             logout()
         else:
             st.session_state.last_active = time.time()
-
-            # Sidebar for navigation
-            st.sidebar.title("Navigation")
-            page = st.sidebar.radio(
-                "Go to",
+            # Display the selected page dynamically
+            st.title("Select a Page")
+            page = st.selectbox(
+                "Choose a Page",
                 [
                     "Main Page",
                     "Email Copy Tasks",
@@ -79,9 +78,8 @@ def main():
                     "Whitepaper from Webinar",
                 ],
             )
-            st.sidebar.button("Logout", on_click=logout)
+            st.button("Logout", on_click=logout)
 
-            # Display the selected page dynamically
             if page == "Main Page":
                 main_page.display()
             elif page == "Email Copy Tasks":
