@@ -1,110 +1,100 @@
-import streamlit as st 
-import pandas as pd
+import streamlit as st
+import hashlib
 
-st.balloons()
-st.markdown("# Data Evaluation App")
+# Function to create the login form
+def login_form():
+    st.title("Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    return username, password
 
-st.write("We are so glad to see you here. ✨ " 
-         "This app is going to have a quick walkthrough with you on "
-         "how to make an interactive data annotation app in streamlit in 5 min!")
+# Function to authenticate the user
+def authenticate(username, password):
+    authorized_users = st.secrets["credentials"]
+    
+    if username in authorized_users:
+        hashed_password = authorized_users[username]
+        if hashlib.sha256(password.encode()).hexdigest() == hashed_password:
+            return True
+    return False
 
-st.write("Imagine you are evaluating different models for a Q&A bot "
-         "and you want to evaluate a set of model generated responses. "
-        "You have collected some user data. "
-         "Here is a sample question and response set.")
+# Function to display the main page
+def main_page():
+    st.title("Main Page")
+    st.write("Welcome to the app! This app helps you manage various tasks.")
+    st.write("Use the sidebar to navigate to different task pages.")
 
-data = {
-    "Questions": 
-        ["Who invented the internet?"
-        , "What causes the Northern Lights?"
-        , "Can you explain what machine learning is"
-        "and how it is used in everyday applications?"
-        , "How do penguins fly?"
-    ],           
-    "Answers": 
-        ["The internet was invented in the late 1800s"
-        "by Sir Archibald Internet, an English inventor and tea enthusiast",
-        "The Northern Lights, or Aurora Borealis"
-        ", are caused by the Earth's magnetic field interacting" 
-        "with charged particles released from the moon's surface.",
-        "Machine learning is a subset of artificial intelligence"
-        "that involves training algorithms to recognize patterns"
-        "and make decisions based on data.",
-        " Penguins are unique among birds because they can fly underwater. "
-        "Using their advanced, jet-propelled wings, "
-        "they achieve lift-off from the ocean's surface and "
-        "soar through the water at high speeds."
-    ]
-}
+# Function to display the subpages
+def email_copy_tasks():
+    st.title("Email Copy Tasks")
+    st.write("This is the Email Copy Tasks page.")
 
-df = pd.DataFrame(data)
+def advertising_copy_tasks():
+    st.title("Advertising Copy Tasks")
+    st.write("This is the Advertising Copy Tasks page.")
 
-st.write(df)
+def web_page_and_mockup_tasks():
+    st.title("Web Page and Mockup Tasks")
+    st.write("This is the Web Page and Mockup Tasks page.")
 
-st.write("Now I want to evaluate the responses from my model. "
-         "One way to achieve this is to use the very powerful `st.data_editor` feature. "
-         "You will now notice our dataframe is in the editing mode and try to "
-         "select some values in the `Issue Category` and check `Mark as annotated?` once finished 👇")
+def press_release_tasks():
+    st.title("Press Release Tasks")
+    st.write("This is the Press Release Tasks page.")
 
-df["Issue"] = [True, True, True, False]
-df['Category'] = ["Accuracy", "Accuracy", "Completeness", ""]
+def social_media_tasks():
+    st.title("Social Media Tasks")
+    st.write("This is the Social Media Tasks page.")
 
-new_df = st.data_editor(
-    df,
-    column_config = {
-        "Questions":st.column_config.TextColumn(
-            width = "medium",
-            disabled=True
-        ),
-        "Answers":st.column_config.TextColumn(
-            width = "medium",
-            disabled=True
-        ),
-        "Issue":st.column_config.CheckboxColumn(
-            "Mark as annotated?",
-            default = False
-        ),
-        "Category":st.column_config.SelectboxColumn
-        (
-        "Issue Category",
-        help = "select the category",
-        options = ['Accuracy', 'Relevance', 'Coherence', 'Bias', 'Completeness'],
-        required = False
-        )
-    }
-)
+def blog_write_task():
+    st.title("Blog Write Task")
+    st.write("This is the Blog Write Task page.")
 
-st.write("You will notice that we changed our dataframe and added new data. "
-         "Now it is time to visualize what we have annotated!")
+def strategy_competitor_tasks():
+    st.title("Strategy Competitor Tasks")
+    st.write("This is the Strategy Competitor Tasks page.")
 
-st.divider()
+def whitepaper_from_webinar():
+    st.title("Whitepaper from Webinar")
+    st.write("This is the Whitepaper from Webinar page.")
 
-st.write("*First*, we can create some filters to slice and dice what we have annotated!")
+# Main function to handle the login flow and page navigation
+def main():
+    if 'authenticated' not in st.session_state:
+        st.session_state.authenticated = False
 
-col1, col2 = st.columns([1,1])
-with col1:
-    issue_filter = st.selectbox("Issues or Non-issues", options = new_df.Issue.unique())
-with col2:
-    category_filter = st.selectbox("Choose a category", options  = new_df[new_df["Issue"]==issue_filter].Category.unique())
+    if not st.session_state.authenticated:
+        username, password = login_form()
+        if st.button("Login"):
+            if authenticate(username, password):
+                st.session_state.authenticated = True
+                st.success(f"Welcome, {username}!")
+            else:
+                st.error("Invalid username or password")
+    else:
+        st.success("You are already logged in!")
+        # Sidebar for navigation
+        st.sidebar.title("Navigation")
+        page = st.sidebar.selectbox("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
 
-st.dataframe(new_df[(new_df['Issue'] == issue_filter) & (new_df['Category'] == category_filter)])
+        # Display the selected page
+        if page == "Main Page":
+            main_page()
+        elif page == "Email Copy Tasks":
+            email_copy_tasks()
+        elif page == "Advertising Copy Tasks":
+            advertising_copy_tasks()
+        elif page == "Web Page and Mockup Tasks":
+            web_page_and_mockup_tasks()
+        elif page == "Press Release Tasks":
+            press_release_tasks()
+        elif page == "Social Media Tasks":
+            social_media_tasks()
+        elif page == "Blog Write Task":
+            blog_write_task()
+        elif page == "Strategy Competitor Tasks":
+            strategy_competitor_tasks()
+        elif page == "Whitepaper from Webinar":
+            whitepaper_from_webinar()
 
-st.markdown("")
-st.write("*Next*, we can visualize our data quickly using `st.metrics` and `st.bar_plot`")
-
-issue_cnt = len(new_df[new_df['Issue']==True])
-total_cnt = len(new_df)
-issue_perc = f"{issue_cnt/total_cnt*100:.0f}%"
-
-col1, col2 = st.columns([1,1])
-with col1:
-    st.metric("Number of responses",issue_cnt)
-with col2:
-    st.metric("Annotation Progress", issue_perc)
-
-df_plot = new_df[new_df['Category']!=''].Category.value_counts().reset_index()
-
-st.bar_chart(df_plot, x = 'Category', y = 'count')
-
-st.write("Here we are at the end of getting started with streamlit! Happy Streamlit-ing! :balloon:")
-
+if __name__ == "__main__":
+    main()
