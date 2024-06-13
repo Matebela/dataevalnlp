@@ -1,17 +1,7 @@
 import streamlit as st
 import hashlib
 import time
-from pages import (
-    main_page,
-    email_copy_tasks,
-    advertising_copy_tasks,
-    web_page_and_mockup_tasks,
-    press_release_tasks,
-    social_media_tasks,
-    blog_write_task,
-    strategy_competitor_tasks,
-    whitepaper_from_webinar,
-)
+from pages import main_page, email_copy_tasks, advertising_copy_tasks, web_page_and_mockup_tasks, press_release_tasks, social_media_tasks, blog_write_task, strategy_competitor_tasks, whitepaper_from_webinar
 
 # Function to create the login form
 def login_form():
@@ -65,25 +55,10 @@ def main():
 
             # Sidebar for navigation
             st.sidebar.title("Navigation")
+            page = st.sidebar.radio("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
             st.sidebar.button("Logout", on_click=logout)
 
-            # Display the selected page dynamically 
-            st.title("Select a Page")
-            page = st.selectbox(
-                "Choose a Page",
-                [
-                    "Main Page",
-                    "Email Copy Tasks",
-                    "Advertising Copy Tasks",
-                    "Web Page and Mockup Tasks",
-                    "Press Release Tasks",
-                    "Social Media Tasks",
-                    "Blog Write Task",
-                    "Strategy Competitor Tasks",
-                    "Whitepaper from Webinar",
-                ],
-            )
-            
+            # Display the selected page
             if page == "Main Page":
                 main_page.display()
             elif page == "Email Copy Tasks":
