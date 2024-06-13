@@ -36,7 +36,7 @@ def display():
 
 # Function to transcribe the file using AssemblyAI
 def transcribe_file(file_path):
-    aai.settings.api_key = st.secrets["assemblyai_api_key"]
+    aai.settings.api_key = st.secrets["credentials"]["assemblyai_api_key"]
     transcriber = aai.Transcriber()
     config = aai.TranscriptionConfig(speaker_labels=True)
 
