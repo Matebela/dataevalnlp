@@ -6,11 +6,6 @@ import requests
 def display():
     st.title("Whitepaper from Webinar")
 
-    # Input fields for webinar details
-    webinar_title = st.text_input("Webinar Title")
-    webinar_date = st.date_input("Webinar Date")
-    key_points = st.text_area("Key Points", "Enter the key points discussed in the webinar...")
-
     # File upload for webinar transcript
     uploaded_file = st.file_uploader("Upload Webinar Transcript", type=["txt", "pdf", "mp3", "wav"])
 
@@ -19,7 +14,7 @@ def display():
 
     # Button to generate whitepaper
     if st.button("Generate Whitepaper"):
-        if (uploaded_file or file_url) and webinar_title and key_points:
+        if uploaded_file or file_url:
             if uploaded_file:
                 # Save the uploaded file to a temporary location
                 with open(uploaded_file.name, "wb") as f:
@@ -37,7 +32,7 @@ def display():
             # Provide a download button for the transcript
             st.download_button("Download Transcript", transcript, file_name="transcript.txt")
         else:
-            st.error("Please fill in all the details and upload the transcript or provide a URL.")
+            st.error("Please upload the transcript or provide a URL.")
 
 # Function to transcribe the file using AssemblyAI
 def transcribe_file(file_path):
