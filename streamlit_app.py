@@ -77,6 +77,7 @@ def main():
                 strategy_competitor_tasks.display()
             elif page == "Whitepaper from Webinar":
                 whitepaper_from_webinar.display()
+                aai.settings.api_key = st.secrets["assemblyai"]["assemblyai_api_key"]
 
 if __name__ == "__main__":
     main()
