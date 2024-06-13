@@ -10,12 +10,15 @@ def login_form():
 
 # Function to authenticate the user
 def authenticate(username, password):
-    authorized_users = st.secrets["credentials"]
-    
-    if username in authorized_users:
-        hashed_password = authorized_users[username]
-        if hashlib.sha256(password.encode()).hexdigest() == hashed_password:
-            return True
+    try:
+        authorized_users = st.secrets["credentials"]
+        
+        if username in authorized_users:
+            hashed_password = authorized_users[username]
+            if hashlib.sha256(password.encode()).hexdigest() == hashed_password:
+                return True
+    except Exception as e:
+        st.error(f"Error during authentication: {e}")
     return False
 
 # Function to display the main page
