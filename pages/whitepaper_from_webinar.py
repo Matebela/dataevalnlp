@@ -7,7 +7,7 @@ def display():
     st.title("Whitepaper from Webinar")
 
     # File upload for webinar transcript
-    uploaded_file = st.file_uploader("Upload Webinar Transcript", type=["txt", "pdf", "mp3", "wav"])
+    uploaded_file = st.file_uploader("Upload Webinar Transcript", type=["txt", "pdf", "mp3", "wav", "mpr"])
 
     # URL input for webinar transcript
     file_url = st.text_input("Or enter the URL of the file to transcribe")
