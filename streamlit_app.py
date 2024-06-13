@@ -1,7 +1,7 @@
 import streamlit as st
 import hashlib
 import time
-from pages import main_page, whitepaper_from_webinar
+from pages import main_page, email_copy_tasks, advertising_copy_tasks, web_page_and_mockup_tasks, press_release_tasks, social_media_tasks, blog_write_task, strategy_competitor_tasks, whitepaper_from_webinar
 
 # Function to create the login form
 def login_form():
@@ -55,12 +55,26 @@ def main():
 
             # Sidebar for navigation
             st.sidebar.title("Navigation")
-            page = st.sidebar.selectbox("Go to", ["Main Page", "Whitepaper from Webinar"])
+            page = st.sidebar.selectbox("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
             st.sidebar.button("Logout", on_click=logout)
 
             # Display the selected page
             if page == "Main Page":
                 main_page.display()
+            elif page == "Email Copy Tasks":
+                email_copy_tasks.display()
+            elif page == "Advertising Copy Tasks":
+                advertising_copy_tasks.display()
+            elif page == "Web Page and Mockup Tasks":
+                web_page_and_mockup_tasks.display()
+            elif page == "Press Release Tasks":
+                press_release_tasks.display()
+            elif page == "Social Media Tasks":
+                social_media_tasks.display()
+            elif page == "Blog Write Task":
+                blog_write_task.display()
+            elif page == "Strategy Competitor Tasks":
+                strategy_competitor_tasks.display()
             elif page == "Whitepaper from Webinar":
                 whitepaper_from_webinar.display()
 
