@@ -1,6 +1,7 @@
 import streamlit as st
 import hashlib
 import time
+from pages import main_page, email_copy_tasks, advertising_copy_tasks, web_page_and_mockup_tasks, press_release_tasks, social_media_tasks, blog_write_task, strategy_competitor_tasks, whitepaper_from_webinar
 
 # Function to create the login form
 def login_form():
@@ -21,45 +22,6 @@ def authenticate(username, password):
     except Exception as e:
         st.error(f"Error during authentication: {e}")
     return False
-
-# Function to display the main page
-def main_page():
-    st.title("Main Page")
-    st.write("Welcome to the app! This app helps you manage various tasks.")
-    st.write("Use the sidebar to navigate to different task pages.")
-
-# Function to display the subpages with placeholders
-def email_copy_tasks():
-    st.title("Email Copy Tasks")
-    st.write("Placeholder for Email Copy Tasks content.")
-
-def advertising_copy_tasks():
-    st.title("Advertising Copy Tasks")
-    st.write("Placeholder for Advertising Copy Tasks content.")
-
-def web_page_and_mockup_tasks():
-    st.title("Web Page and Mockup Tasks")
-    st.write("Placeholder for Web Page and Mockup Tasks content.")
-
-def press_release_tasks():
-    st.title("Press Release Tasks")
-    st.write("Placeholder for Press Release Tasks content.")
-
-def social_media_tasks():
-    st.title("Social Media Tasks")
-    st.write("Placeholder for Social Media Tasks content.")
-
-def blog_write_task():
-    st.title("Blog Write Task")
-    st.write("Placeholder for Blog Write Task content.")
-
-def strategy_competitor_tasks():
-    st.title("Strategy Competitor Tasks")
-    st.write("Placeholder for Strategy Competitor Tasks content.")
-
-def whitepaper_from_webinar():
-    st.title("Whitepaper from Webinar")
-    st.write("Placeholder for Whitepaper from Webinar content.")
 
 # Function to handle logout
 def logout():
@@ -98,23 +60,23 @@ def main():
 
             # Display the selected page
             if page == "Main Page":
-                main_page()
+                main_page.display()
             elif page == "Email Copy Tasks":
-                email_copy_tasks()
+                email_copy_tasks.display()
             elif page == "Advertising Copy Tasks":
-                advertising_copy_tasks()
+                advertising_copy_tasks.display()
             elif page == "Web Page and Mockup Tasks":
-                web_page_and_mockup_tasks()
+                web_page_and_mockup_tasks.display()
             elif page == "Press Release Tasks":
-                press_release_tasks()
+                press_release_tasks.display()
             elif page == "Social Media Tasks":
-                social_media_tasks()
+                social_media_tasks.display()
             elif page == "Blog Write Task":
-                blog_write_task()
+                blog_write_task.display()
             elif page == "Strategy Competitor Tasks":
-                strategy_competitor_tasks()
+                strategy_competitor_tasks.display()
             elif page == "Whitepaper from Webinar":
-                whitepaper_from_webinar()
+                whitepaper_from_webinar.display()
 
 if __name__ == "__main__":
     main()
