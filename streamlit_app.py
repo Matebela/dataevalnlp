@@ -1,5 +1,6 @@
 import streamlit as st
 import hashlib
+import time
 
 # Function to create the login form
 def login_form():
@@ -60,6 +61,11 @@ def whitepaper_from_webinar():
     st.title("Whitepaper from Webinar")
     st.write("Placeholder for Whitepaper from Webinar content.")
 
+# Function to handle logout
+def logout():
+    st.session_state.authenticated = False
+    st.experimental_rerun()
+
 # Main function to handle the login flow and page navigation
 def main():
     if 'authenticated' not in st.session_state:
@@ -70,33 +76,42 @@ def main():
         if st.button("Login"):
             if authenticate(username, password):
                 st.session_state.authenticated = True
+                st.session_state.last_active = time.time()
                 st.experimental_rerun()  # Rerun the script to show the main content
             else:
                 st.error("Invalid username or password")
     else:
-        # Sidebar for navigation
-        st.sidebar.title("Navigation")
-        page = st.sidebar.selectbox("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
+        # Check for session timeout (e.g., 30 minutes)
+        if time.time() - st.session_state.last_active > 1800:
+            st.warning("Session timed out. Please log in again.")
+            logout()
+        else:
+            st.session_state.last_active = time.time()
 
-        # Display the selected page
-        if page == "Main Page":
-            main_page()
-        elif page == "Email Copy Tasks":
-            email_copy_tasks()
-        elif page == "Advertising Copy Tasks":
-            advertising_copy_tasks()
-        elif page == "Web Page and Mockup Tasks":
-            web_page_and_mockup_tasks()
-        elif page == "Press Release Tasks":
-            press_release_tasks()
-        elif page == "Social Media Tasks":
-            social_media_tasks()
-        elif page == "Blog Write Task":
-            blog_write_task()
-        elif page == "Strategy Competitor Tasks":
-            strategy_competitor_tasks()
-        elif page == "Whitepaper from Webinar":
-            whitepaper_from_webinar()
+            # Sidebar for navigation
+            st.sidebar.title("Navigation")
+            page = st.sidebar.selectbox("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
+            st.sidebar.button("Logout", on_click=logout)
+
+            # Display the selected page
+            if page == "Main Page":
+                main_page()
+            elif page == "Email Copy Tasks":
+                email_copy_tasks()
+            elif page == "Advertising Copy Tasks":
+                advertising_copy_tasks()
+            elif page == "Web Page and Mockup Tasks":
+                web_page_and_mockup_tasks()
+            elif page == "Press Release Tasks":
+                press_release_tasks()
+            elif page == "Social Media Tasks":
+                social_media_tasks()
+            elif page == "Blog Write Task":
+                blog_write_task()
+            elif page == "Strategy Competitor Tasks":
+                strategy_competitor_tasks()
+            elif page == "Whitepaper from Webinar":
+                whitepaper_from_webinar()
 
 if __name__ == "__main__":
     main()
