@@ -10,10 +10,7 @@ def login_form():
 
 # Function to authenticate the user
 def authenticate(username, password):
-    authorized_users = {
-        "user1": "5e884898da28047151d0e56f8dc6292773603d0d6aabbddc8a1e6e6a6e6e6e6e",  password: 5e884898da28047151d0e56f8dc6292773603d0d6aabbddc8a1e6e6a6e6e6e6e
-        # Add more users and hashed passwords here
-    }
+    authorized_users = st.secrets["credentials"]
     
     if username in authorized_users:
         hashed_password = authorized_users[username]
@@ -27,38 +24,38 @@ def main_page():
     st.write("Welcome to the app! This app helps you manage various tasks.")
     st.write("Use the sidebar to navigate to different task pages.")
 
-# Function to display the subpages
+# Function to display the subpages with placeholders
 def email_copy_tasks():
     st.title("Email Copy Tasks")
-    st.write("This is the Email Copy Tasks page.")
+    st.write("Placeholder for Email Copy Tasks content.")
 
 def advertising_copy_tasks():
     st.title("Advertising Copy Tasks")
-    st.write("This is the Advertising Copy Tasks page.")
+    st.write("Placeholder for Advertising Copy Tasks content.")
 
 def web_page_and_mockup_tasks():
     st.title("Web Page and Mockup Tasks")
-    st.write("This is the Web Page and Mockup Tasks page.")
+    st.write("Placeholder for Web Page and Mockup Tasks content.")
 
 def press_release_tasks():
     st.title("Press Release Tasks")
-    st.write("This is the Press Release Tasks page.")
+    st.write("Placeholder for Press Release Tasks content.")
 
 def social_media_tasks():
     st.title("Social Media Tasks")
-    st.write("This is the Social Media Tasks page.")
+    st.write("Placeholder for Social Media Tasks content.")
 
 def blog_write_task():
     st.title("Blog Write Task")
-    st.write("This is the Blog Write Task page.")
+    st.write("Placeholder for Blog Write Task content.")
 
 def strategy_competitor_tasks():
     st.title("Strategy Competitor Tasks")
-    st.write("This is the Strategy Competitor Tasks page.")
+    st.write("Placeholder for Strategy Competitor Tasks content.")
 
 def whitepaper_from_webinar():
     st.title("Whitepaper from Webinar")
-    st.write("This is the Whitepaper from Webinar page.")
+    st.write("Placeholder for Whitepaper from Webinar content.")
 
 # Main function to handle the login flow and page navigation
 def main():
