@@ -71,6 +71,9 @@ def main():
     if 'authenticated' not in st.session_state:
         st.session_state.authenticated = False
 
+    if 'last_active' not in st.session_state:
+        st.session_state.last_active = time.time()
+
     if not st.session_state.authenticated:
         username, password = login_form()
         if st.button("Login"):
