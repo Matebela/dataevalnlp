@@ -14,7 +14,6 @@ def login_form():
 def authenticate(username, password):
     try:
         authorized_users = st.secrets["credentials"]
-        
         if username in authorized_users:
             hashed_password = authorized_users[username]
             if hashlib.sha256(password.encode()).hexdigest() == hashed_password:
@@ -52,12 +51,10 @@ def main():
             logout()
         else:
             st.session_state.last_active = time.time()
-
             # Sidebar for navigation
             st.sidebar.title("Navigation")
             page = st.sidebar.radio("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
             st.sidebar.button("Logout", on_click=logout)
-
             # Display the selected page
             if page == "Main Page":
                 main_page.display()
@@ -76,8 +73,7 @@ def main():
             elif page == "Strategy Competitor Tasks":
                 strategy_competitor_tasks.display()
             elif page == "Whitepaper from Webinar":
-                whitepaper_from_webinar.display() 
-                # REMOVED: aai.settings.api_key = st.secrets["assemblyai"] 
+                whitepaper_from_webinar.display()
 
 if __name__ == "__main__":
     main()
