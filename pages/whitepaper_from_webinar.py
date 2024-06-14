@@ -1,10 +1,13 @@
 import streamlit as st
 import requests
 import json
-import os
 
-# Set OpenRouter API key from secrets
-OPENROUTER_API_KEY = st.secrets["openrouter_api_key"]
+# Load OpenRouter API key from Streamlit secrets
+try:
+    OPENROUTER_API_KEY = st.secrets["openrouter_api_key"]
+except KeyError:
+    st.error("OpenRouter API key not found in secrets.toml. Please add it.")
+    st.stop()
 
 # Function to display the whitepaper from webinar page
 def display():
