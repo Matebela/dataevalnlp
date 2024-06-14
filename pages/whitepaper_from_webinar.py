@@ -1,61 +1,89 @@
 import streamlit as st
-import assemblyai as aai
 import requests
+import json
+import os
+
+# Set OpenRouter API key from secrets
+OPENROUTER_API_KEY = st.secrets["openrouter_api_key"]
 
 # Function to display the whitepaper from webinar page
 def display():
     st.title("Whitepaper from Webinar")
 
-    # File upload for webinar transcript
-    uploaded_file = st.file_uploader("Upload Webinar Transcript", type=["txt", "pdf", "mp3", "wav", "mp4"])
-
-    # URL input for webinar transcript
-    file_url = st.text_input("Or enter the URL of the file to transcribe")
+    # Text input for webinar transcript
+    webinar_transcript = st.text_area("Paste Webinar Transcript", height=200)
 
     # Button to generate whitepaper
     if st.button("Generate Whitepaper"):
-        if uploaded_file or file_url:
-            if uploaded_file:
-                # Save the uploaded file to a temporary location
-                with open(uploaded_file.name, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
-                file_path = uploaded_file.name
-            else:
-                file_path = file_url
+        if webinar_transcript:
+            # Call OpenRouter API to generate whitepaper
+            whitepaper_content = generate_whitepaper(webinar_transcript)
 
-            # Set AssemblyAI API key
-            aai.settings.api_key = st.secrets["assemblyai"]
+            # Display the generated whitepaper
+            st.markdown("## Generated Whitepaper")
+            st.markdown(whitepaper_content)
 
-            # Transcribe the file
-            transcript = transcribe_file(file_path)
-
-            # Display the transcript in a fixed-width box
-            st.text_area("Transcript", transcript, height=300)
-
-            # Provide a download button for the transcript
-            st.download_button("Download Transcript", transcript, file_name="transcript.txt")
+            # Provide a download button for the whitepaper
+            st.download_button("Download Whitepaper", whitepaper_content, file_name="whitepaper.txt")
         else:
-            st.error("Please upload the transcript or provide a URL.")
+            st.error("Please paste the webinar transcript.")
 
-# Function to transcribe the file using AssemblyAI
-def transcribe_file(file_path):
-    transcriber = aai.Transcriber()
-    config = aai.TranscriptionConfig(speaker_labels=True)
+# Function to generate whitepaper using OpenRouter API
+def generate_whitepaper(webinar_transcript):
+    prompt = f"""
+    Objective: Generate a comprehensive and informative white paper based on the provided webinar transcript. The white paper should cover the key topics, insights, and actionable recommendations discussed in the webinar.
 
-    if file_path.startswith("http"):
-        # If the file is a URL, transcribe it directly
-        transcript = transcriber.transcribe(file_path, config=config)
-    else:
-        # If the file is local, check if it's an audio file
-        if file_path.endswith(('.mp3', '.mp4', '.wav')):
-            # If it's an audio file, upload it to AssemblyAI's servers first
-            file_url = transcriber.upload(file_path)
-            # Then transcribe the uploaded file
-            transcript = transcriber.transcribe(file_url, config=config)
-        else:
-            # If it's not an audio file, transcribe it directly
-            with open(file_path, "rb") as f:
-                transcript = transcriber.transcribe(f, config=config)
+    Webinar Transcript:
+    {webinar_transcript}
 
-    transcript_text = "\n".join([f"Speaker {utterance.speaker}: {utterance.text}" for utterance in transcript.utterances])
-    return transcript_text
+    Instructions:
+    1. Analyze the webinar transcript and identify the main topics, key points, and important insights discussed.
+
+    2. Create an outline for the white paper, organizing the content into logical sections and subsections based on the identified topics and key points. The outline should include:
+       - Introduction
+       - Background information
+       - Main sections (3-5 sections covering the key topics)
+       - Actionable recommendations
+       - Conclusion
+
+    3. For each section in the outline, generate detailed and informative content by:
+       - Expanding on the key points and insights from the webinar
+       - Providing relevant examples, case studies, or statistics to support the points
+       - Offering practical advice and actionable recommendations for the target audience
+       - Ensuring a clear and logical flow of information throughout the section
+
+    4. Write an engaging introduction that captures the reader's attention, highlights the importance of the topic, and provides an overview of what the white paper will cover.
+
+    5. Develop a compelling conclusion that summarizes the main points, reinforces the key takeaways, and encourages the reader to take action based on the recommendations provided.
+
+    6. Ensure that the white paper maintains a professional and informative tone throughout, using clear and concise language that is easy to understand for the target audience.
+
+    7. Incorporate relevant visuals, such as charts, graphs, or diagrams, to support the content and enhance the reader's understanding. (Note: Please provide descriptions or suggestions for visuals; I cannot generate actual images.)
+
+    8. Proofread and refine the generated content to ensure clarity, coherence, and accuracy. Make any necessary edits or improvements to enhance the overall quality of the white paper.
+
+    9. Format the white paper in a visually appealing and easy-to-read layout, using appropriate headings, subheadings, bullet points, and white space.
+
+    10. Provide a final version of the white paper, ready for distribution to the target audience.
+
+    Note: The generated white paper should be approximately 1000-1500 words in length.
+
+    Please generate the white paper based on the provided webinar transcript and instructions.
+    """
+
+    response = requests.post(
+        url="https://openrouter.ai/api/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        },
+        data=json.dumps({
+            "model": "openrouter/auto",
+            "messages": [
+                {"role": "user", "content": prompt}
+            ]
+        })
+    )
+
+    response_json = response.json()
+    whitepaper_content = response_json['choices'][0]['message']['content']
+    return whitepaper_content
