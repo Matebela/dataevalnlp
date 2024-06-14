@@ -76,8 +76,8 @@ def main():
             elif page == "Strategy Competitor Tasks":
                 strategy_competitor_tasks.display()
             elif page == "Whitepaper from Webinar":
-                whitepaper_from_webinar.display()
-                aai.settings.api_key = st.secrets["assemblyai"]
+                whitepaper_from_webinar.display() 
+                # REMOVED: aai.settings.api_key = st.secrets["assemblyai"] 
 
 if __name__ == "__main__":
     main()
