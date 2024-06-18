@@ -100,8 +100,8 @@ def generate_social_media_posts(context, topic, article_link, article_content):
         posts_content = response_json['choices'][0]['message']['content']
         linkedin_posts = posts_content.split("LinkedIn Posts:")[1].split("Twitter Posts:")[0].strip().split("\n\n")
         twitter_posts = posts_content.split("Twitter Posts:")[1].strip().split("\n\n")
-        linkedin_posts = [post.strip() for post in linkedin_posts if post.strip()]
-        twitter_posts = [post.strip() for post in twitter_posts if post.strip()]
+        linkedin_posts = [post.strip().replace("[link]", article_link) for post in linkedin_posts if post.strip()]
+        twitter_posts = [post.strip().replace("[link]", article_link) for post in twitter_posts if post.strip()]
         return {"linkedin": linkedin_posts, "twitter": twitter_posts}
     except (IndexError, KeyError, ValueError) as e:
         st.error(f"Error processing response: {e}")
