@@ -25,14 +25,14 @@ def display():
 
     # Button to generate email
     if st.button("Generate Email"):
-        if all([objective, event_details, products_to_promote, 
-                copy_and_trademark_usage, marketing_objective, 
+        if all([objective, event_details, products_to_promote,
+                copy_and_trademark_usage, marketing_objective,
                 cta, audience, destination_url]):
 
-            email_content = generate_email(objective, event_details, 
-                                          products_to_promote, 
+            email_content = generate_email(objective, event_details,
+                                          products_to_promote,
                                           copy_and_trademark_usage,
-                                          marketing_objective, cta, 
+                                          marketing_objective, cta,
                                           audience, destination_url)
             if email_content:
                 st.markdown("## Generated Email")
@@ -42,18 +42,33 @@ def display():
         else:
             st.error("Please fill in all the fields.")
 
+
 # Function to generate email using OpenRouter API
-def generate_email(objective, event_details, products_to_promote, 
-                   copy_and_trademark_usage, marketing_objective, 
+def generate_email(objective, event_details, products_to_promote,
+                   copy_and_trademark_usage, marketing_objective,
                    cta, audience, destination_url):
 
     prompt = f"""
-    You are a marketing assistant tasked with drafting a compelling email promoting a company's attendance at an upcoming conference. The email should have a dual focus:
+    You are a marketing assistant tasked with drafting a compelling email promoting a company's attendance at an upcoming conference. 
+    The email should follow the structure and style of the example provided below. 
 
-    1. **General Promotion:** Briefly introduce the company and highlight its presence at the event. Showcase key products or services.
-    2. **Featured Presentation Promotion:**  Dedicate a section to specifically promoting a presentation being given by a company representative.
+    **Example Email Structure:**
 
-    Here is the information provided to you:
+    **Subject Line Option A:** [Engaging subject line related to the event and company]
+    **Subject Line Option B:** [Alternative engaging subject line]
+    **Preview Text Option A:** [Concise and enticing preview text]
+    **Preview Text Option B:** [Alternative preview text]
+
+    **Title:** [Compelling title for the email body]
+
+    **Body:**
+    [Engaging introduction and company/product overview]
+    [Information about the featured presentation, including speaker, title, date, time, location]
+    [Call to action to visit the booth or attend the presentation]
+
+    **CTA:** [Clear call to action with a link to the destination URL]
+
+    **Here is the information for this email:**
 
     **Objective:** {objective}
     **Event Details:** {event_details}
@@ -65,7 +80,9 @@ def generate_email(objective, event_details, products_to_promote,
     **Destination URL:** {destination_url}
 
     **Instructions:** 
-    Using the information provided, craft a single, well-structured email that incorporates both the general promotion and the featured presentation promotion. Ensure the email is informative, engaging, and adheres to the specified copy and trademark guidelines. 
+    Using the information and example structure provided, craft a single, well-structured email. 
+    Ensure the email is informative, engaging, and adheres to the specified copy and trademark guidelines. 
+    Provide two options each for the subject line and preview text.
     """
 
     response = requests.post(
