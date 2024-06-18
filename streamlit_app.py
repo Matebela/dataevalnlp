@@ -53,7 +53,7 @@ def main():
             st.session_state.last_active = time.time()
             # Sidebar for navigation
             st.sidebar.title("Navigation")
-            page = st.sidebar.radio("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
+            page = st.sidebar.selectbox("Go to", ["Main Page", "Email Copy Tasks", "Advertising Copy Tasks", "Web Page and Mockup Tasks", "Press Release Tasks", "Social Media Tasks", "Blog Write Task", "Strategy Competitor Tasks", "Whitepaper from Webinar"])
             st.sidebar.button("Logout", on_click=logout)
             # Display the selected page
             if page == "Main Page":
