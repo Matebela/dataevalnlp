@@ -32,32 +32,32 @@ def display():
 # Function to generate whitepaper using OpenRouter API
 def generate_whitepaper(webinar_transcript):
     prompt = f"""
-    Objective: Generate a comprehensive and informative white paper based on the provided webinar transcript. The white paper should cover the key topics, insights, and actionable recommendations discussed in the webinar.
+    provided webinar transcript. The white paper should cover key topics, insights, and actionable recommendations discussed in the webinar.
 
-    Webinar Transcript: {webinar_transcript}
+Webinar Transcript: {webinar_transcript}
 
-    Instructions:
-    1. Analyze the webinar transcript and identify the main topics, key points, and important insights discussed.
-    2. Create an outline for the white paper, organizing the content into logical sections and subsections based on the identified topics and key points. The outline should include:
-        - Introduction
-        - Background information
-        - Main sections (3-5 sections covering the key topics)
-        - Actionable recommendations
-        - Conclusion
-    3. For each section in the outline, generate detailed and informative content by:
-        - Expanding on the key points and insights from the webinar
-        - Providing relevant examples, case studies, or statistics to support the points
-        - Offering practical advice and actionable recommendations for the target audience
-        - Ensuring a clear and logical flow of information throughout the section
-    4. Write an engaging introduction that captures the reader's attention, highlights the importance of the topic, and provides an overview of what the white paper will cover.
-    5. Develop a compelling conclusion that summarizes the main points, reinforces the key takeaways, and encourages the reader to take action based on the recommendations provided.
-    6. Ensure that the white paper maintains a professional and informative tone throughout, using clear and concise language that is easy to understand for the target audience.
-    7. Incorporate relevant visuals, such as charts, graphs, or diagrams, to support the content and enhance the reader's understanding. (Note: Please provide descriptions or suggestions for visuals; I cannot generate actual images.)
-    8. Proofread and refine the generated content to ensure clarity, coherence, and accuracy. Make any necessary edits or improvements to enhance the overall quality of the white paper.
-    9. Format the white paper in a visually appealing and easy-to-read layout, using appropriate headings, subheadings, bullet points, and white space.
-    10. Provide a final version of the white paper, ready for distribution to the target audience.
+Instructions:
+1. **Analyze the Transcript**: Identify the main topics, key points, and important insights discussed in the webinar.
+2. **Create an Outline**: Organize the content into logical sections and subsections, including:
+    - Introduction
+    - Background Information
+    - Main Sections (3-5 sections covering key topics)
+    - Actionable Recommendations
+    - Conclusion
+3. **Develop Content**: For each section, generate detailed and informative content by:
+    - Expanding on key points and insights from the webinar
+    - Providing relevant examples, case studies, or statistics
+    - Offering practical advice and actionable recommendations
+    - Ensuring a clear and logical flow of information
+4. **Engaging Introduction**: Write an introduction that captures the reader's attention, highlights the importance of the topic, and provides an overview of the white paper.
+5. **Compelling Conclusion**: Summarize the main points, reinforce key takeaways, and encourage the reader to take action based on the recommendations.
+6. **Professional Tone**: Maintain a professional and informative tone, using clear and concise language.
+7. **Incorporate Visuals**: Suggest relevant visuals (e.g., charts, graphs, diagrams) to support the content and enhance understanding. Provide descriptions or suggestions for visuals.
+8. **Proofread and Refine**: Ensure clarity, coherence, and accuracy. Make necessary edits to enhance the overall quality.
+9. **Format the White Paper**: Use appropriate headings, subheadings, bullet points, and white space for a visually appealing layout.
+10. **Final Version**: Provide a final version of the white paper, approximately 1000-1500 words in length, ready for distribution.
 
-    Note: The generated white paper should be approximately 1000-1500 words in length. Please generate the white paper based on the provided webinar transcript and instructions.
+Note: Please generate the white paper based on the provided webinar transcript and instructions.
     """
     response = requests.post(
         url="https://openrouter.ai/api/v1/chat/completions",
