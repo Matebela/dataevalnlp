@@ -39,7 +39,6 @@ def display():
             st.error("Please fill in all the fields.")
 
 
-# Function to generate social media posts using OpenRouter API
 def generate_social_media_posts(context, topic, article_link):
     prompt = f"""
     LinkedIn and Twitter Post Prompt
@@ -55,7 +54,7 @@ def generate_social_media_posts(context, topic, article_link):
     6. Include a Call to Action: Encourage readers to learn more by visiting the blog, downloading resources, or contacting Samba Scientific.
     7. Add Relevant Hashtags: Use industry-specific hashtags to increase reach and visibility within the life science and biotech community.
     Output:
-    Separate the output into two sections: "LinkedIn Posts:" and "Twitter Posts:".  Under each section, list the three posts.
+    Separate the output into two sections: "LinkedIn Posts:" and "Twitter Posts:". Under each section, list the three posts.
     Important Considerations:
     * Length: Keep LinkedIn posts concise (around 300 words) and Twitter posts even shorter (under 280 characters).
     * Visuals: Consider adding relevant images or videos to your posts to increase engagement.
