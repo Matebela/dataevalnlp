@@ -77,7 +77,7 @@ def generate_email(event_details, email_type, target_audience):
     response_json = response.json()
     
     # Log the response for debugging
-    st.write(response_json)
+    st.write("API Response:", response_json)
     
     try:
         email_content = response_json['choices'][0]['message']['content']
