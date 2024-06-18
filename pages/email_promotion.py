@@ -26,7 +26,7 @@ def display():
             if email_content and explanation:
                 # Display the generated email
                 st.markdown("## Generated Email")
-                st.markdown(email_content)
+                st.markdown(email_content, unsafe_allow_html=True)
                 # Display the explanation
                 st.markdown("## Explanation")
                 st.markdown(explanation)
@@ -81,7 +81,7 @@ def generate_email(event_details, email_type, target_audience):
     
     try:
         email_content = response_json['choices'][0]['message']['content']
-        explanation = response_json['choices'][1]['message']['content']
+        explanation = response_json['choices'][0]['message']['content']  # Assuming the explanation is also in the first choice
         return email_content, explanation
     except (IndexError, KeyError) as e:
         st.error(f"Error processing response: {e}")
