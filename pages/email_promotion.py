@@ -22,16 +22,11 @@ def display():
     if st.button("Generate Email"):
         if event_details and email_type and target_audience:
             # Call OpenRouter API to generate email
-            email_content, explanation = generate_email(event_details, email_type, target_audience)
-            if email_content and explanation:
+            email_content = generate_email(event_details, email_type, target_audience)
+            if email_content:
                 # Display the generated email
                 st.markdown("## Generated Email")
-                st.markdown(email_content, unsafe_allow_html=True)
-                # Display the explanation
-                st.markdown("## Explanation")
-                st.markdown(explanation)
-                # Provide a download button for the email
-                st.download_button("Download Email", email_content, file_name="email.txt")
+                st.markdown(email_content, unsafe_allow_html=True)  # Display as clean markup
             else:
                 st.error("Failed to generate email. Please try again.")
         else:
@@ -59,7 +54,7 @@ def generate_email(event_details, email_type, target_audience):
     Close the email in a way that creates a sense of urgency and excitement
     Use a tone and style appropriate for the email type and target audience
     Keep the email concise - no more than 200 words
-    Write your draft inside <email></email> tags. After drafting the email, provide a short explanation inside <explanation></explanation> tags on how your email draft is designed to effectively promote the event to the target audience.
+    Write your draft inside <email></email> tags. 
     </Instructions>
     """
     response = requests.post(
@@ -76,13 +71,9 @@ def generate_email(event_details, email_type, target_audience):
     )
     response_json = response.json()
     
-    # Log the response for debugging
-    st.write("API Response:", response_json)
-    
     try:
         email_content = response_json['choices'][0]['message']['content']
-        explanation = response_json['choices'][0]['message']['content']  # Assuming the explanation is also in the first choice
-        return email_content, explanation
+        return email_content
     except (IndexError, KeyError) as e:
         st.error(f"Error processing response: {e}")
-        return None, None
+        return None
