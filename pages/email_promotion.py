@@ -23,14 +23,17 @@ def display():
         if event_details and email_type and target_audience:
             # Call OpenRouter API to generate email
             email_content, explanation = generate_email(event_details, email_type, target_audience)
-            # Display the generated email
-            st.markdown("## Generated Email")
-            st.markdown(email_content)
-            # Display the explanation
-            st.markdown("## Explanation")
-            st.markdown(explanation)
-            # Provide a download button for the email
-            st.download_button("Download Email", email_content, file_name="email.txt")
+            if email_content and explanation:
+                # Display the generated email
+                st.markdown("## Generated Email")
+                st.markdown(email_content)
+                # Display the explanation
+                st.markdown("## Explanation")
+                st.markdown(explanation)
+                # Provide a download button for the email
+                st.download_button("Download Email", email_content, file_name="email.txt")
+            else:
+                st.error("Failed to generate email. Please try again.")
         else:
             st.error("Please fill in all the fields.")
 
@@ -72,6 +75,14 @@ def generate_email(event_details, email_type, target_audience):
         })
     )
     response_json = response.json()
-    email_content = response_json['choices'][0]['message']['content']
-    explanation = response_json['choices'][1]['message']['content']
-    return email_content, explanation
+    
+    # Log the response for debugging
+    st.write(response_json)
+    
+    try:
+        email_content = response_json['choices'][0]['message']['content']
+        explanation = response_json['choices'][1]['message']['content']
+        return email_content, explanation
+    except (IndexError, KeyError) as e:
+        st.error(f"Error processing response: {e}")
+        return None, None
