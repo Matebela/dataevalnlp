@@ -3,15 +3,14 @@ import hashlib
 import time
 from pages import (
     main_page,
-    email_copy_tasks,
+    email_promotion,  # Replacing email_copy_tasks with email_promotion
     advertising_copy_tasks,
     web_page_and_mockup_tasks,
     press_release_tasks,
     social_media_tasks,
     blog_write_task,
     strategy_competitor_tasks,
-    whitepaper_from_webinar,
-    email_promotion
+    whitepaper_from_webinar
 )
 
 # Function to create the login form
@@ -66,22 +65,21 @@ def main():
             st.sidebar.title("Navigation")
             page = st.sidebar.selectbox("Go to", [
                 "Main Page",
-                "Email Copy Tasks",
+                "Email Promotion",  # Updated to "Email Promotion"
                 "Advertising Copy Tasks",
                 "Web Page and Mockup Tasks",
                 "Press Release Tasks",
                 "Social Media Tasks",
                 "Blog Write Task",
                 "Strategy Competitor Tasks",
-                "Whitepaper from Webinar",
-                "Email Promotion"
+                "Whitepaper from Webinar"
             ])
             st.sidebar.button("Logout", on_click=logout)
             # Display the selected page
             if page == "Main Page":
                 main_page.display()
-            elif page == "Email Copy Tasks":
-                email_copy_tasks.display()
+            elif page == "Email Promotion":  # Updated to "Email Promotion"
+                email_promotion.display()
             elif page == "Advertising Copy Tasks":
                 advertising_copy_tasks.display()
             elif page == "Web Page and Mockup Tasks":
@@ -96,8 +94,6 @@ def main():
                 strategy_competitor_tasks.display()
             elif page == "Whitepaper from Webinar":
                 whitepaper_from_webinar.display()
-            elif page == "Email Promotion":
-                email_promotion.display()
 
 if __name__ == "__main__":
     main()
