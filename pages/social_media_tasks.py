@@ -45,6 +45,9 @@ def generate_social_media_posts(context, topic, article_link, article_content):
     LinkedIn and Twitter Post Prompt
     Context: {context}
     Goal: Generate 6 social media posts: 3 for LinkedIn and 3 for Twitter, promoting the provided article about {topic} in the life science and biotech industry.
+    Article Link: {article_link}
+    Article Content: {article_content}
+    
     Instructions:
     For each post:
     Identify Key Points: Analyze the article and extract the main topic, target audience, key challenges addressed, solutions offered, and desired outcomes.
@@ -88,8 +91,7 @@ def generate_social_media_posts(context, topic, article_link, article_content):
         data=json.dumps({
             "model": "openrouter/auto",
             "messages": [
-                {"role": "user", "content": prompt},
-                {"role": "user", "content": article_content}
+                {"role": "user", "content": prompt}
             ]
         })
     )
