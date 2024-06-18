@@ -74,3 +74,4 @@ def generate_whitepaper(webinar_transcript):
     response_json = response.json()
     whitepaper_content = response_json['choices'][0]['message']['content']
     return whitepaper_content
+
