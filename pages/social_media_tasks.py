@@ -38,7 +38,7 @@ def display():
         else:
             st.error("Please fill in all the fields.")
 
-
+# Function to generate social media posts using OpenRouter API
 def generate_social_media_posts(context, topic, article_link):
     prompt = f"""
     LinkedIn and Twitter Post Prompt
@@ -87,3 +87,7 @@ def generate_social_media_posts(context, topic, article_link):
     except (IndexError, KeyError, ValueError) as e:
         st.error(f"Error processing response: {e}")
         return None
+
+# Run the display function to start the Streamlit app
+if __name__ == "__main__":
+    display()
