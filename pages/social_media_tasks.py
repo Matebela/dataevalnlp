@@ -27,11 +27,11 @@ def display():
 
                 st.markdown("**LinkedIn Posts:**")
                 for i, post in enumerate(posts['linkedin']):
-                    st.write(f"**Post {i+1}:** {post}")  # Print each post directly
+                    st.write(f"**Post {i+1}:** {post}") 
 
                 st.markdown("**Twitter Posts:**")
                 for i, post in enumerate(posts['twitter']):
-                    st.write(f"**Post {i+1}:** {post}")  # Print each post directly
+                    st.write(f"**Post {i+1}:** {post}") 
 
             else:
                 st.error("Failed to generate posts. Please try again.")
