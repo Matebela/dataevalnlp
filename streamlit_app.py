@@ -3,14 +3,14 @@ import hashlib
 import time
 from pages import (
     main_page,
-    email_promotion,  # Replacing email_copy_tasks with email_promotion
-    advertising_copy_tasks,
-    web_page_and_mockup_tasks,
-    press_release_tasks,
-    social_media_tasks,
-    blog_write_task,
-    strategy_competitor_tasks,
-    whitepaper_from_webinar
+    # email_promotion,  # Replacing email_copy_tasks with email_promotion
+    # advertising_copy_tasks,
+    # web_page_and_mockup_tasks,
+    # press_release_tasks,
+    # social_media_tasks,
+    # blog_write_task,
+    # strategy_competitor_tasks,
+    # whitepaper_from_webinar
 )
 
 # Function to create the login form
@@ -88,8 +88,8 @@ def main():
                 press_release_tasks.display()
             elif page == "Social Media Tasks":
                 social_media_tasks.display()
-            elif page == "Blog Write Task":
-                blog_write_task.display()
+            # elif page == "Blog Write Task":
+                # blog_write_task.display()
             # elif page == "Strategy Competitor Tasks":
                 # strategy_competitor_tasks.display()
             elif page == "Whitepaper from Webinar":
