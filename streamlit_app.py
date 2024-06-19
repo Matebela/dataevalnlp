@@ -68,7 +68,7 @@ def main():
                 "Email Promotion",  # Updated to "Email Promotion"
                 # "Advertising Copy Tasks",
                 # "Web Page and Mockup Tasks",
-                "Press Release Tasks",
+                # "Press Release Tasks",
                 "Social Media Tasks",
                 # "Blog Write Task",
                 # "Strategy Competitor Tasks",
@@ -84,8 +84,8 @@ def main():
                 # advertising_copy_tasks.display()
             # elif page == "Web Page and Mockup Tasks":
                 # web_page_and_mockup_tasks.display()
-            elif page == "Press Release Tasks":
-                press_release_tasks.display()
+            # elif page == "Press Release Tasks":
+                # press_release_tasks.display()
             elif page == "Social Media Tasks":
                 social_media_tasks.display()
             # elif page == "Blog Write Task":
